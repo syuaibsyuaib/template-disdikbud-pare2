@@ -12,7 +12,7 @@
 		crossorigin="anonymous"></script>
 	<title>DISDIKBUD PAREPARE TEMPLATE</title>
 	<style>
-		.img-thumbnail{
+		.img-thumbnail {
 			max-width: 40vw;
 			margin: 2px;
 		}
@@ -68,7 +68,7 @@
 		$('form').submit(e => {
 			e.preventDefault()
 			let wd = $('#video_container').width()
-			var constraints = { video: {width: wd} };
+			var constraints = { video: { width: wd } };
 
 			navigator.mediaDevices.getUserMedia(constraints)
 				.then(function (mediaStream) {
@@ -79,6 +79,12 @@
 					};
 				})
 				.catch(function (err) { console.log(err.name + ": " + err.message); });
+
+
+		})
+		$('a').click(e => {
+			e.preventDefault()
+			console.log($(e.target).prop('src'))
 		})
 	</script>
 </body>
