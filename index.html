@@ -132,7 +132,7 @@
 			let ctx2 = cvs2.getContext('2d')
 			ctx2.putImageData(imageData, 0, 0)
 
-			let urlGambar = cvs2.toDataURL("image/png")
+			let urlGambar = $('#cvs')[0].toDataURL("image/png")
 
 			var link = document.createElement('a');
 			link.download = 'disdikbud_template.png';
