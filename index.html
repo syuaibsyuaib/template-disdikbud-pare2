@@ -17,7 +17,7 @@
 			margin: 2px;
 		}
 
-		canvas{
+		canvas {
 			width: 100%;
 			height: 100%;
 		}
@@ -28,11 +28,12 @@
 	<div class="container my-3">
 		<form>
 			<div class="text-center">
-				<div style="height:400px;width: 400px;position: relative;" class="border text-center m-auto" id="video_container">
+				<div style="height:400px;width: 400px;position: relative;" class="border text-center m-auto"
+					id="video_container">
 					<canvas id="cvs" style="position: absolute;left: 0;top: 0;"></canvas>
-				<video id="myVideo"></video>
+					<video id="myVideo"></video>
+				</div>
 			</div>
-		</div>
 			<div>
 				<div class="mb-3">
 					<label for="btn_ambil_gambar" class="form-label">Gunakan Kamera</label>
@@ -45,6 +46,7 @@
 								d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
 						</svg>
 					</button>
+					<button type="submit" class="btn btn-primary" id="unduh" disabled>Unduh</button>
 				</div>
 				<div class="mb-3">
 					<label for="inp_gambar" class="form-label">Pilih Foto</label>
@@ -61,9 +63,6 @@
 						<img src="/images/tes.png" class="img-thumbnail" alt="">
 					</a>
 				</div>
-				<div class="text-end mx-3">
-					<button type="submit" class="btn btn-primary">Unduh</button>
-				</div>
 			</div>
 		</form>
 	</div>
@@ -74,35 +73,76 @@
 	<script>
 		let wd = $('#video_container').innerWidth()
 		let hg = $('#video_container').innerHeight()
-		
+		let ctx = $('#cvs')[0].getContext("2d")
+
 
 		$('form').submit(e => {
 			e.preventDefault()
-			var constraints = { video: {width:wd, height:hg} };
-
+			let constraints = { video: { width: wd, height: hg } };
 			navigator.mediaDevices.getUserMedia(constraints)
 				.then(function (mediaStream) {
 					var video = document.querySelector('video');
 					video.srcObject = mediaStream;
 					video.onloadedmetadata = function (e) {
 						video.play();
+						$('#unduh').prop('disabled', false)
 					};
 				})
 				.catch(function (err) { console.log(err.name + ": " + err.message); });
-
-
 		})
+
+		$('#btn_ambil_gambar').click(e => {
+			ctx.clearRect(0, 0, wd, hg);
+		})
+
+
 		$('a').click(e => {
 			e.preventDefault()
 
-			var hRatio = $('#cvs').width() /  $(e.target)[0].naturalWidth;
+			var hRatio = $('#cvs').width() / $(e.target)[0].naturalWidth;
 			var vRatio = $('#cvs').height() / $(e.target)[0].naturalHeight;
-			var ratio  = Math.min ( hRatio, vRatio ) * 0.8;
+			var ratio = Math.min(hRatio, vRatio) * 0.8;
 
-			let ctx = $('#cvs')[0].getContext("2d")
+			// let ctx = $('#cvs')[0].getContext("2d")
 			ctx.clearRect(0, 0, wd, hg);
-			ctx.drawImage($(e.target)[0], 0, 0, $(e.target)[0].naturalWidth, $(e.target)[0].naturalHeight, 0, 0, $('#cvs').width() /1.3, $('#cvs').height()/2.5)
+			ctx.drawImage($(e.target)[0], 0, 0, $(e.target)[0].naturalWidth, $(e.target)[0].naturalHeight, 0, 0, $('#cvs').width() / 1.3, $('#cvs').height() / 2.5)
 			console.log($(e.target)[0].naturalWidth * ratio)
+		})
+
+		$('#unduh').click(e => {
+			// gambar
+			let imageData = ctx.getImageData(0, 0, wd, hg)
+			let imageData1 = imageData.data
+			// video
+			ctx.drawImage($('#myVideo')[0], 0, 0, $('#myVideo').width(), $('#myVideo').height(), 0, 0, $('#cvs').width() / 1.3, $('#cvs').height() / 2.5)
+			let videoData = ctx.getImageData(0, 0, wd, hg)
+			let imageData2 = videoData.data
+
+			var pixels = 4 * wd * hg;
+			while (pixels--) {
+				if (imageData1[pixels] == 0) {
+					imageData1[pixels] = imageData2[pixels];
+				}
+			}
+			imageData.data = imageData1;
+			ctx.putImageData(imageData, 0, 0);
+
+			let cvs2 = document.createElement('canvas')
+			cvs2.width = wd
+			cvs2.height = hg
+
+			let ctx2 = cvs2.getContext('2d')
+			ctx2.putImageData(imageData, 0, 0)
+
+			let urlGambar = cvs2.toDataURL("image/png")
+
+			var link = document.createElement('a');
+			link.download = 'disdikbud_template.png';
+			link.href = urlGambar
+
+			// $('body').prepend(gambar)
+			
+			link.click();
 		})
 	</script>
 </body>
