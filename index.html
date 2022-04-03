@@ -17,7 +17,7 @@
 			margin: 2px;
 		}
 
-		
+
 		/* canvas {
 			width: 100%;
 			height: 100%;
@@ -30,8 +30,9 @@
 		<form>
 			<div class="text-center">
 				<div style="height:400px;width: 400px;position: relative;" class="border text-center m-auto"
-				id="video_container">
-				<canvas id="cvs" style="position: absolute;left: 0;right: 0;"></canvas>
+					id="video_container">
+					<p></p>
+					<canvas id="cvs" style="position: absolute;left: 0;right: 0;"></canvas>
 					<video id="myVideo"></video>
 				</div>
 			</div>
@@ -58,7 +59,7 @@
 						<img src="images/tes.png" class="img-thumbnail" alt="">
 					</a>
 					<a href="#">
-						<img src="images/tes2.jpg" class="img-thumbnail" alt="">
+						<img src="images/template1.png" class="img-thumbnail" alt="">
 					</a>
 
 				</div>
@@ -99,10 +100,10 @@
 
 			$('a').click(e => {
 				e.preventDefault()
-				
+
 				// $('#cvs').height(hg)
 				let faktor = $(e.target)[0].naturalWidth / $(e.target)[0].naturalHeight
-				
+
 				$('#cvs')[0].width = wd
 				$('#cvs')[0].height = hg
 				// alert(faktor)
@@ -122,7 +123,7 @@
 				let imageData2 = videoData.data
 
 				var pixels = 4 * wd * hg;
-				for(let i = 4; i < pixels; i = i + 4){
+				for (let i = 4; i < pixels; i = i + 4) {
 					if (imageData1[i] == 0) {
 						imageData1[i] = imageData2[i];
 						imageData1[i - 1] = imageData2[i - 1];
