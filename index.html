@@ -17,11 +17,11 @@
 			margin: 2px;
 		}
 
-/*
-		canvas {
+		
+		/* canvas {
 			width: 100%;
 			height: 100%;
-		}*/
+		} */
 	</style>
 </head>
 
@@ -30,8 +30,8 @@
 		<form>
 			<div class="text-center">
 				<div style="height:400px;width: 400px;position: relative;" class="border text-center m-auto"
-					id="video_container">
-					<canvas id="cvs" style="position: absolute;left: 0;top: 0;"></canvas>
+				id="video_container">
+				<canvas id="cvs" style="position: absolute;left: 0;right: 0;"></canvas>
 					<video id="myVideo"></video>
 				</div>
 			</div>
@@ -60,7 +60,7 @@
 					<a href="#">
 						<img src="images/tes2.jpg" class="img-thumbnail" alt="">
 					</a>
-					
+
 				</div>
 			</div>
 		</form>
@@ -70,79 +70,76 @@
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<!-- <script src="https://vjs.zencdn.net/7.18.1/video.min.js"></script> -->
 	<script>
-		let wd = $('#video_container').innerWidth()
-		let hg = $('#video_container').innerHeight()
-		let ctx = $('#cvs')[0].getContext("2d")
+		$(document).ready(function () {
+			let wd = $('#video_container').innerWidth()
+			let hg = $('#video_container').innerHeight()
+
+			let ctx = $('#cvs')[0].getContext("2d")
+			ctx.imageSmoothingEnabled = false;
+
+			$('form').submit(e => {
+				e.preventDefault()
+				let constraints = { video: { width: wd, height: hg } };
+				navigator.mediaDevices.getUserMedia(constraints)
+					.then(function (mediaStream) {
+						var video = document.querySelector('video');
+						video.srcObject = mediaStream;
+						video.onloadedmetadata = function (e) {
+							video.play();
+							$('#unduh').prop('disabled', false)
+						};
+					})
+					.catch(function (err) { console.log(err.name + ": " + err.message); });
+			})
+
+			$('#btn_ambil_gambar').click(e => {
+				ctx.clearRect(0, 0, wd, hg);
+			})
 
 
-		$('form').submit(e => {
-			e.preventDefault()
-			let constraints = { video: { width: wd, height: hg } };
-			navigator.mediaDevices.getUserMedia(constraints)
-				.then(function (mediaStream) {
-					var video = document.querySelector('video');
-					video.srcObject = mediaStream;
-					video.onloadedmetadata = function (e) {
-						video.play();
-						$('#unduh').prop('disabled', false)
-					};
-				})
-				.catch(function (err) { console.log(err.name + ": " + err.message); });
-		})
+			$('a').click(e => {
+				e.preventDefault()
+				
+				// $('#cvs').height(hg)
+				let faktor = $(e.target)[0].naturalWidth / $(e.target)[0].naturalHeight
+				
+				$('#cvs')[0].width = wd
+				$('#cvs')[0].height = hg
+				// alert(faktor)
+				ctx.clearRect(0, 0, wd, hg);
+				ctx.drawImage($(e.target)[0], 0, 0, $('#cvs').width(), $('#cvs').height()) //destination
 
-		$('#btn_ambil_gambar').click(e => {
-			ctx.clearRect(0, 0, wd, hg);
-		})
+				// alert($(e.target)[0].naturalWidth)
+			})
 
+			$('#unduh').click(e => {
+				// gambar
+				let imageData = ctx.getImageData(0, 0, wd, hg)
+				let imageData1 = imageData.data
+				// video
+				ctx.drawImage($('#myVideo')[0], 0, 0, $('#myVideo').width(), $('#myVideo').height(), 0, 0, $('#cvs').width() / 1.3, $('#cvs').height() / 2.5)
+				let videoData = ctx.getImageData(0, 0, wd, hg)
+				let imageData2 = videoData.data
 
-		$('a').click(e => {
-			e.preventDefault()
-
-			var hRatio = $('#cvs').width() / $(e.target)[0].naturalWidth;
-			var vRatio = $('#cvs').height() / $(e.target)[0].naturalHeight;
-			var ratio = Math.min(hRatio, vRatio) * 0.8;
-
-			// let ctx = $('#cvs')[0].getContext("2d")
-			ctx.clearRect(0, 0, wd, hg);
-			ctx.drawImage($(e.target)[0], 0, 0, $(e.target)[0].naturalWidth, $(e.target)[0].naturalHeight, 0, 0, $('#cvs').width() / 1.3, $('#cvs').height() / 2.5)
-			console.log($(e.target)[0].naturalWidth * ratio)
-		})
-
-		$('#unduh').click(e => {
-			// gambar
-			let imageData = ctx.getImageData(0, 0, wd, hg)
-			let imageData1 = imageData.data
-			// video
-			ctx.drawImage($('#myVideo')[0], 0, 0, $('#myVideo').width(), $('#myVideo').height(), 0, 0, $('#cvs').width() / 1.3, $('#cvs').height() / 2.5)
-			let videoData = ctx.getImageData(0, 0, wd, hg)
-			let imageData2 = videoData.data
-
-			var pixels = 4 * wd * hg;
-			while (pixels--) {
-				if (imageData1[pixels] == 0) {
-					imageData1[pixels] = imageData2[pixels];
+				var pixels = 4 * wd * hg;
+				while (pixels--) {
+					if (imageData1[pixels] == 0) {
+						imageData1[pixels] = imageData2[pixels];
+					}
 				}
-			}
-			imageData.data = imageData1;
-			ctx.putImageData(imageData, 0, 0);
+				imageData.data = imageData1;
+				ctx.putImageData(imageData, 0, 0);
 
-			let cvs2 = document.createElement('canvas')
-			cvs2.width = wd
-			cvs2.height = hg
+				let urlGambar = $('#cvs')[0].toDataURL("image/png")
 
-			let ctx2 = cvs2.getContext('2d')
-			ctx2.putImageData(imageData, 0, 0)
+				let link = document.createElement('a');
+				link.download = 'disdikbud_template.png';
+				link.href = urlGambar
 
-			let urlGambar = $('#cvs')[0].toDataURL("image/png")
-
-			var link = document.createElement('a');
-			link.download = 'disdikbud_template.png';
-			link.href = urlGambar
-
-			// $('body').prepend(gambar)
-			
-			link.click();
+				link.click();
+			})
 		})
+
 	</script>
 </body>
 
