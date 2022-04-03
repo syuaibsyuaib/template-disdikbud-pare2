@@ -126,8 +126,8 @@
 				let videoData = ctx.getImageData(0, 0, wd, hg)
 				let imageData2 = videoData.data
 
-				var pixels = 4 * wd * hg;
-				for (let i = 4; i < imageData1.length; i += 4) {
+				//var pixels = 4 * wd * hg;
+				for (let i = 3; i < imageData1.length; i += 4) {
 					if (imageData1[i] == 0 && imageData1[i - 1] == 0 && imageData1[i - 2] == 0 && imageData1[i - 3] == 0) {
 						imageData1[i] = imageData2[i];
 						imageData1[i - 1] = imageData2[i - 1];
