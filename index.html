@@ -117,16 +117,24 @@
 				let imageData = ctx.getImageData(0, 0, wd, hg)
 				let imageData1 = imageData.data
 				// video
-				ctx.drawImage($('#myVideo')[0], 0, 0, $('#myVideo').width(), $('#myVideo').height(), 0, 0, $('#cvs').width() / 1.3, $('#cvs').height() / 2.5)
+				ctx.drawImage($('#myVideo')[0], 0, 0, $('#cvs').width(), $('#cvs').height())
 				let videoData = ctx.getImageData(0, 0, wd, hg)
 				let imageData2 = videoData.data
 
 				var pixels = 4 * wd * hg;
-				while (pixels--) {
-					if (imageData1[pixels] == 0) {
-						imageData1[pixels] = imageData2[pixels];
+				for(let i = 4; i < pixels; i = i + 4){
+					if (imageData1[i] == 0) {
+						imageData1[i] = imageData2[i];
+						imageData1[i - 1] = imageData2[i - 1];
+						imageData1[i - 2] = imageData2[i - 2];
+						imageData1[i - 3] = imageData2[i - 3];
 					}
 				}
+				// while (pixels--) {
+				// 	if (imageData1[pixels] < 2) {
+				// 		imageData1[pixels] = imageData2[pixels];
+				// 	}
+				// }
 				imageData.data = imageData1;
 				ctx.putImageData(imageData, 0, 0);
 
