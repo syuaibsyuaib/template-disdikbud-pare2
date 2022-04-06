@@ -198,7 +198,7 @@
 
 
 								// uses the dragMoveListener from the draggable demo above
-								dragMoveListener(scaleElement)
+								dragMoveListener(event)
 							},
 							end(event) {
 								angleScale.angle = angleScale.angle + event.angle
@@ -223,7 +223,7 @@
 				}
 
 				function dragMoveListener(event) {
-					var target = event
+					var target = event.target
 					// keep the dragged position in the data-x/data-y attributes
 					var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
 					var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
