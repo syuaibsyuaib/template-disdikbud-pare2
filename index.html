@@ -22,6 +22,22 @@
 			width: 100%;
 			height: 100%;
 		} */
+
+		.draggable {
+			/* width: 25%;
+			min-height: 6.5em;
+			margin: 1rem 0 0 1rem;
+			background-color: #29e;
+			color: white;
+			border-radius: 0.75em;
+			padding: 4%; */
+			touch-action: none;
+			user-select: none;
+		}
+
+		#cvs.reset {
+			transition: transform 0.3s ease-in-out;
+		}
 	</style>
 </head>
 
@@ -29,45 +45,42 @@
 	<div class="m-3">
 		<form>
 			<div>
-				<div style="height:90vw;width:90vw;position: relative;" class="border m-auto" id="video_container">
-					<canvas id="cvs" style="position: absolute;left: 0;right: 0;"></canvas>
-					<canvas id="cvsNama" style="position: absolute;left: 0;right: 0;"></canvas>
-					<video id="myVideo"></video>
+				<div style="height:90vw;width:90vw;position: relative;overflow: hidden;" class="border m-auto"
+					id="video_container">
+					<!-- <canvas id="cvsNama" style="position: absolute;left: 0;right: 0;"></canvas> -->
+					<canvas id="cvs" style="position: absolute;left: 0;right: 0;">tidak mendukung
+						canvas</canvas>
+					<img style="position: absolute;left: 0;right: 0; width: auto; height: 100%;" src="" alt=""
+						id="template">
+					<div id="fake_canvas" style="position: absolute;" class="draggable"></div>
 				</div>
 			</div>
 			<div>
 				<div class="mb-3 text-center">
 					<button class="form-control w-50 my-3 m-auto btn btn-danger" id="btn_ambil_gambar">
-Aktifkan Kamera
-						
+						Pilih Gambar
 					</button>
+					<input style="display: none;" type="file" class="form-control" id="inp_gambar" accept="image/*">
 					<div class="mb-3 text-start">
-						<label for="inp_nama" class="form-label">Nama Anda (Pilih template terlebih dahulu!)</label>
-						<input type="text" class="form-control" id="inp_nama" placeholder="nama ta" disabled>
+						<label for="inp_nama" class="form-label">Nama Anda</label>
+						<input type="text" class="form-control" id="inp_nama" placeholder="nama ta">
 					</div>
 					<div class="text-end">
-						<button type="submit" class="btn btn-success m-auto w-25" id="unduh" disabled>
-<svg xmlns="http://www.w3.org/2000/svg" style="width:auto;height:20px" width="16" height="16"
-							fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
-							<path
-								d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
-							<path
-								d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
-						</svg>
+						<button type="submit" class="btn btn-success m-auto w-25" id="unduh">
+							<svg xmlns="http://www.w3.org/2000/svg" style="width:auto;height:20px" width="16"
+								height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
+								<path
+									d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+								<path
+									d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+							</svg>
 						</button>
 					</div>
 				</div>
-
-				<!-- <div class="mb-3">
-					<label for="inp_gambar" class="form-label">Pilih Foto</label>
-					<input type="file" class="form-control" id="inp_gambar" aria-describedby="inpPhoto">
-				</div> -->
-
 				<div class="text-center">
 					<a href="#">
 						<img src="images/template1.png" class="img-thumbnail" alt="">
 					</a>
-
 				</div>
 			</div>
 		</form>
@@ -75,157 +88,253 @@ Aktifkan Kamera
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
 		integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<!-- <script src="https://vjs.zencdn.net/7.18.1/video.min.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
 	<script>
-		$(document).ready(function () {
-			let wd = $('#video_container').innerWidth()
-			let hg = $('#video_container').innerHeight()
-			let ctxNama = $('#cvsNama')[0].getContext('2d')
-			let ctx = $('#cvs')[0].getContext("2d")
-			ctx.imageSmoothingEnabled = false;
+		// $(document).ready(function () {
+		let wd = $('#video_container').innerWidth()
+		let hg = $('#video_container').innerHeight()
+		// let ctxNama = $('#cvsNama')[0].getContext('2d')
 
-			$('form').submit(e => {
-				e.preventDefault()
-				let constraints = { video: { width: wd, height: hg } };
-				getMedia(constraints)
-				async function getMedia(constraints) {
-					let stream = null;
+		// ctx.imageSmoothingEnabled = false;
 
-					try {
-						stream = await navigator.mediaDevices.getUserMedia(constraints);
-						var video = document.querySelector('video');
-						video.srcObject = stream;
-						video.onloadedmetadata = function (e) {
-							video.play();
-							$('#unduh').prop('disabled', false)
-							console.log('metadata berjalan')
-						};
-					} catch (err) {
-						console.log(err.name + ": " + err.message);
-					}
-				}
-			})
+		$('form').submit(e => {
+			e.preventDefault()
 
-			// $('#btn_ambil_gambar').click(e => {
-			// 	ctx.clearRect(0, 0, wd, hg);
-			// })
+			// let constraints = { video: { width: wd, height: hg } };
+			// getMedia(constraints)
+			// async function getMedia(constraints) {
+			// 	let stream = null;
 
+			// 	try {
+			// 		stream = await navigator.mediaDevices.getUserMedia(constraints);
+			// 		var video = document.querySelector('video');
+			// 		video.srcObject = stream;
+			// 		video.onloadedmetadata = function (e) {
+			// 			video.play();
+			// 			$('#unduh').prop('disabled', false)
+			// 			console.log('metadata berjalan')
+			// 		};
+			// 	} catch (err) {
+			// 		console.log(err.name + ": " + err.message);
+			// 	}
+			// }
+		})
 
-			$('a').click(e => {
-				e.preventDefault()
+		$('#btn_ambil_gambar').click(e => {
+			// ctx.clearRect(0, 0, wd, hg);
 
-				// $('#cvs').height(hg)
-				let faktor = $(e.target)[0].naturalWidth / $(e.target)[0].naturalHeight
+			$('#inp_gambar').click()
 
+		})
+
+		$('#inp_gambar').change(e => {
+			let gambar = document.createElement('img')
+			let file = $(e.target)[0].files[0]
+			let reader = new FileReader()
+			reader.readAsDataURL(file)
+			reader.onload = (e) => {
+				gambar.src = e.target.result
+				// gambar.id = "tesgambar"
+				// $('body').append(gambar)
+
+			}
+			reader.onloadend = (e) => {
+				let ctx = $('#cvs')[0].getContext("2d")
+				ctx.clearRect(0, 0, $('#cvs')[0].width, $('#cvs')[0].height);
+				let ratio = gambar.naturalHeight / gambar.naturalWidth
+				let tinggiGambar = wd * ratio
 				$('#cvs')[0].width = wd
-				$('#cvs')[0].height = hg
-				// alert(faktor)
-				// ctx.clearRect(0, 0, wd, hg);
-				ctx.drawImage($(e.target)[0], 0, 0, $('#cvs').width(), $('#cvs').height()) //destination
+				$('#cvs')[0].height = tinggiGambar
+				ctx.drawImage(gambar, 0, 0, $('#cvs')[0].width, $('#cvs')[0].height)
+				$('#fake_canvas').width($('#cvs')[0].width)
+				$('#fake_canvas').height($('#cvs')[0].height)
 
-				$('#inp_nama').prop('disabled', false)
+				const position = { x: 0, y: 0 }
 
-				$('#inp_nama').keyup(e => {
-					let lebar = 0
-					
-					$('#cvsNama')[0].width = wd
-					$('#cvsNama')[0].height = hg
+				interact('.draggable').draggable({
+					listeners: {
+						start(event) {
+							console.log(event.type, event.target)
+						},
+						move(event) {
+							position.x += event.dx
+							position.y += event.dy
 
-					let ratio = $('#cvs').width() - 360
-					if (ratio < 0) {
-						ratio = ratio * -1
+							event.target.style.transform = `translate(${position.x}px, ${position.y}px)`
+							$('#cvs')[0].style.transform = `translate(${position.x}px, ${position.y}px)`
+						},
 					}
-					console.log(ratio)
-					console.log($('#cvs').width())
-					const maxWidth = (150 / 322) * $('#cvs').width()
-					const lineHeight = (20 / 322) * $('#cvs').width();
-					const x = (13 / 322) * $('#cvs').width();
-					const y = ($('#cvsNama')[0].height / 2.2);
-					const text = $('#inp_nama').val();
-
-					ctxNama.font = `${(12 / 322) * $('#cvs').width()}px Verdana`;
-					// Create gradient
-					let gradient = ctxNama.createLinearGradient(0, 0, $('#cvs')[0].width, 0);
-					gradient.addColorStop("0", " magenta");
-					gradient.addColorStop("0.5", "blue");
-					gradient.addColorStop("1.0", "red");
-					// Fill with gradient
-					ctxNama.fillStyle = gradient;
-
-					let wrapText = (ctx, text, x, y, maxWidth, lineHeight) => {
-						const words = text.split(' ');
-						let line = '';
-						for (const [index, w] of words.entries()) {
-							const testLine = line + w + ' ';
-							const metrics = ctx.measureText(testLine);
-							const testWidth = metrics.width;
-							if (testWidth > maxWidth && index > 0) {
-								ctx.fillText(line, x, y);
-								line = w + ' ';
-								y += lineHeight;
-							} else {
-								line = testLine;
-							}
-						}
-						ctx.fillText(line, x, y);
-					}
-					wrapText(ctxNama, text, x, y, maxWidth, lineHeight);
-
 				})
 
-				// alert($(e.target)[0].naturalWidth)
-			})
-
-			$('#unduh').click(e => {
-				// nama
-				let namaData = ctxNama.getImageData(0, 0, $('#cvsNama')[0].width, $('#cvsNama')[0].height)
-				let imageData0 = namaData.data
-				// gambar
-				let imageData = ctx.getImageData(0, 0, wd, hg)
-				let imageData1 = imageData.data
-				// video
-				ctx.drawImage($('#myVideo')[0], 0, 0, $('#cvs').width(), $('#cvs').height())
-				let videoData = ctx.getImageData(0, 0, wd, hg)
-				let imageData2 = videoData.data
-				let arrData = [imageData0, imageData1, imageData2]
-				for (let j = 1; j < 3; j++) {
-					for (let i = 3; i < imageData0.length; i += 4) {
-						if (imageData0[i] == 0 && imageData0[i - 1] == 0 && imageData0[i - 2] == 0 && imageData0[i - 3] == 0) {
-							imageData0[i] = arrData[j][i];
-							imageData0[i - 1] = arrData[j][i - 1];
-							imageData0[i - 2] = arrData[j][i - 2];
-							imageData0[i - 3] = arrData[j][i - 3];
-						}
-					}
+				var angleScale = {
+					angle: 0,
+					scale: 1
 				}
+				var gestureArea = $('#video_container')[0]
+				var scaleElement = $('#fake_canvas')[0]
+				var resetTimeout
 
-				// for (let i = 3; i < imageData1.length; i += 4) {
-				// 	if (imageData1[i] == 0 && imageData1[i - 1] == 0 && imageData1[i - 2] == 0 && imageData1[i - 3] == 0) {
-				// 		imageData1[i] = imageData2[i];
-				// 		imageData1[i - 1] = imageData2[i - 1];
-				// 		imageData1[i - 2] = imageData2[i - 2];
-				// 		imageData1[i - 3] = imageData2[i - 3];
-				// 	}
-				// }
+				interact(gestureArea)
+					.gesturable({
+						listeners: {
+							start(event) {
+								angleScale.angle -= event.angle
 
-				// while (pixels--) {
-				// 	if (imageData1[pixels] < 2) {
-				// 		imageData1[pixels] = imageData2[pixels];
-				// 	}
-				// }
+								clearTimeout(resetTimeout)
+								scaleElement.classList.remove('reset')
+								$('cvs')[0].classList.remove('reset')
+							},
+							move(event) {
+								// document.body.appendChild(new Text(event.scale))
+								var currentAngle = event.angle + angleScale.angle
+								var currentScale = event.scale * angleScale.scale
 
-				namaData.data = imageData0;
-				ctx.putImageData(namaData, 0, 0);
+								scaleElement.style.transform =
+									'rotate(' + currentAngle + 'deg)' + 'scale(' + currentScale + ')'
 
-				let urlGambar = $('#cvs')[0].toDataURL("image/jpg")
+								$('cvs')[0].style.transform =
+									'rotate(' + currentAngle + 'deg)' + 'scale(' + currentScale + ')'
 
+
+								// uses the dragMoveListener from the draggable demo above
+								dragMoveListener(event)
+							},
+							end(event) {
+								angleScale.angle = angleScale.angle + event.angle
+								angleScale.scale = angleScale.scale * event.scale
+
+								resetTimeout = setTimeout(reset, 1000)
+								scaleElement.classList.add('reset')
+								$('cvs')[0].classList.add('reset')
+							}
+						}
+					})
+					.draggable({
+						listeners: { move: dragMoveListener }
+					})
+
+				function reset() {
+					scaleElement.style.transform = 'scale(1)'
+					$('cvs')[0].style.transform = 'scale(1)'
+
+					angleScale.angle = 0
+					angleScale.scale = 1
+				}
+			}
+		})
+
+		// FRAME
+		$('a').click(e => {
+			e.preventDefault()
+
+			// 	// $('#cvs').height(hg)
+			// 	let faktor = $(e.target)[0].naturalWidth / $(e.target)[0].naturalHeight
+
+			// 	$('#cvs')[0].width = wd
+			// 	$('#cvs')[0].height = hg
+			// 	// alert(faktor)
+			// 	// ctx.clearRect(0, 0, wd, hg);
+
+			// ctx.drawImage($(e.target)[0], 0, 0, $('#cvs').width(), $('#cvs').height()) //destination
+			$('#template')[0].src = $(e.target)[0].src
+			// 	$('#inp_nama').prop('disabled', false)
+
+			// 	$('#inp_nama').keyup(e => {
+			// 		let lebar = 0
+
+			// 		$('#cvsNama')[0].width = wd
+			// 		$('#cvsNama')[0].height = hg
+
+			// 		let ratio = $('#cvs').width() - 360
+			// 		if (ratio < 0) {
+			// 			ratio = ratio * -1
+			// 		}
+			// 		console.log(ratio)
+			// 		console.log($('#cvs').width())
+			// 		const maxWidth = (150 / 322) * $('#cvs').width()
+			// 		const lineHeight = (20 / 322) * $('#cvs').width();
+			// 		const x = (13 / 322) * $('#cvs').width();
+			// 		const y = ($('#cvsNama')[0].height / 2.2);
+			// 		const text = $('#inp_nama').val();
+
+			// 		ctxNama.font = `${(12 / 322) * $('#cvs').width()}px Verdana`;
+			// 		// Create gradient
+			// 		let gradient = ctxNama.createLinearGradient(0, 0, $('#cvs')[0].width, 0);
+			// 		gradient.addColorStop("0", " magenta");
+			// 		gradient.addColorStop("0.5", "blue");
+			// 		gradient.addColorStop("1.0", "red");
+			// 		// Fill with gradient
+			// 		ctxNama.fillStyle = gradient;
+
+			// 		let wrapText = (ctx, text, x, y, maxWidth, lineHeight) => {
+			// 			const words = text.split(' ');
+			// 			let line = '';
+			// 			for (const [index, w] of words.entries()) {
+			// 				const testLine = line + w + ' ';
+			// 				const metrics = ctx.measureText(testLine);
+			// 				const testWidth = metrics.width;
+			// 				if (testWidth > maxWidth && index > 0) {
+			// 					ctx.fillText(line, x, y);
+			// 					line = w + ' ';
+			// 					y += lineHeight;
+			// 				} else {
+			// 					line = testLine;
+			// 				}
+			// 			}
+			// 			ctx.fillText(line, x, y);
+			// 		}
+			// 		wrapText(ctxNama, text, x, y, maxWidth, lineHeight);
+
+		})
+
+		// 	// alert($(e.target)[0].naturalWidth)
+		// })
+
+		$('#unduh').click(e => {
+			html2canvas(video_container).then(function (canvas) {
+				let alamat = canvas.toDataURL("image/jpg")
 				let link = document.createElement('a');
 				link.download = 'disdikbud_template.jpg';
-				link.href = urlGambar
+				link.href = alamat
 
 				link.click();
-			})
+			});
+			// 	// nama
+			// 	let namaData = ctxNama.getImageData(0, 0, $('#cvsNama')[0].width, $('#cvsNama')[0].height)
+			// 	let imageData0 = namaData.data
+			// 	// gambar
+			// 	let imageData = ctx.getImageData(0, 0, wd, hg)
+			// 	let imageData1 = imageData.data
+			// 	// video
+			// 	ctx.drawImage($('#myVideo')[0], 0, 0, $('#cvs').width(), $('#cvs').height())
+			// 	let videoData = ctx.getImageData(0, 0, wd, hg)
+			// 	let imageData2 = videoData.data
+			// 	let arrData = [imageData0, imageData1, imageData2]
+			// 	for (let j = 1; j < 3; j++) {
+			// 		for (let i = 3; i < imageData0.length; i += 4) {
+			// 			if (imageData0[i] == 0 && imageData0[i - 1] == 0 && imageData0[i - 2] == 0 && imageData0[i - 3] == 0) {
+			// 				imageData0[i] = arrData[j][i];
+			// 				imageData0[i - 1] = arrData[j][i - 1];
+			// 				imageData0[i - 2] = arrData[j][i - 2];
+			// 				imageData0[i - 3] = arrData[j][i - 3];
+			// 			}
+			// 		}
+			// 	}
+
+			// 	namaData.data = imageData0;
+			// 	ctx.putImageData(namaData, 0, 0);
+
+			// 	let urlGambar = $('#cvs')[0].toDataURL("image/jpg")
+
+			// 	let link = document.createElement('a');
+			// 	link.download = 'disdikbud_template.jpg';
+			// 	link.href = urlGambar
+
+			// 	link.click();
+
 		})
+		// })
 
 	</script>
 </body>
