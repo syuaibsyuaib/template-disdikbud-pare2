@@ -48,8 +48,10 @@
 				<div style="height:90vw;width:90vw;position: relative;overflow: hidden;" class="border m-auto"
 					id="video_container">
 					<!-- <canvas id="cvsNama" style="position: absolute;left: 0;right: 0;"></canvas> -->
-					<canvas id="cvs" style="position: absolute;left: 0;right: 0;">tidak mendukung
-						canvas</canvas>
+					<div id="gesture-area">
+						<canvas id="cvs" style="position: absolute;left: 0;right: 0;">tidak mendukung
+							canvas</canvas>
+					</div>
 					<img style="position: absolute;left: 0;right: 0; width: auto; height: 100%;" src="" alt=""
 						id="template">
 					<div id="fake_canvas" style="position: absolute;" class="draggable"></div>
@@ -152,36 +154,22 @@
 
 				const position = { x: 0, y: 0 }
 
-				interact('.draggable')
-					.draggable({
-						// enable inertial throwing
-						inertia: true,
-						// keep the element within the area of it's parent
-						modifiers: [
-							interact.modifiers.restrictRect({
-								restriction: 'parent',
-								endOnly: true
-							})
-						],
-						// enable autoScroll
-						// autoScroll: true,
+				interact('.draggable').draggable({
+					listeners: {
+						start(event) {
+							console.log(event.type, event.target)
+						},
+						move(event) {
+							position.x += event.dx
+							position.y += event.dy
 
-						listeners: {
-							// call this function on every dragmove event
-							move: dragMoveListener,
-
-							// call this function on every dragend event
-							end(event) {
-								// var textEl = event.target.querySelector('p')
-
-								// textEl && (textEl.textContent =
-								// 	'moved a distance of ' +
-								// 	(Math.sqrt(Math.pow(event.pageX - event.x0, 2) +
-								// 		Math.pow(event.pageY - event.y0, 2) | 0))
-								// 		.toFixed(2) + 'px')
-							}
-						}
-					})
+							event.target.style.transform =
+								`translate(${position.x}px, ${position.y}px)`
+							$('#cvs')[0].style.transform =
+								`translate(${position.x}px, ${position.y}px)`
+						},
+					}
+				})
 
 				function dragMoveListener(event) {
 					var target = event.target
@@ -205,7 +193,7 @@
 					angle: 0,
 					scale: 1
 				}
-				var gestureArea = $('#video_container')[0]
+				var gestureArea = $('#gesture-area')[0]
 				var scaleElement = $('#fake_canvas')[0]
 				var resetTimeout
 
