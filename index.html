@@ -33,10 +33,17 @@
 			padding: 4%; */
 			touch-action: none;
 			user-select: none;
+			width: 100%;
+			height: 100%;
 		}
 
 		#fake_canvas.reset {
 			transition: transform 0.3s ease-in-out;
+		}
+
+		#gesture-cvs {
+			width: fit-content;
+			height: fit-content;
 		}
 	</style>
 </head>
@@ -47,44 +54,44 @@
 			<div>
 				<div style="height:90vw;width:90vw;position: relative;overflow: hidden;" class="border m-auto"
 					id="video_container">
-					<!-- <canvas id="cvsNama" style="position: absolute;left: 0;right: 0;"></canvas> -->
-					<div id="gesture-area" style="position: absolute;left: 0;right: 0;">
-						<canvas id="cvs">tidak mendukung
-							canvas</canvas>
+					<div style="position: absolute;left: 0;top: 0;" id="gesture-cvs">
+						<canvas id="cvs">Gunakan Browser Chrome Terbaru</canvas>
 					</div>
 					<img style="position: absolute;left: 0;right: 0; width: auto; height: 100%;" src="" alt=""
 						id="template">
-					<div id="fake_canvas" style="position: absolute;" class="draggable"></div>
-				</div>
-			</div>
-			<div>
-				<div class="mb-3 text-center">
-					<button class="form-control w-50 my-3 m-auto btn btn-danger" id="btn_ambil_gambar">
-						Pilih Gambar
-					</button>
-					<input style="display: none;" type="file" class="form-control" id="inp_gambar" accept="image/*">
-					<div class="mb-3 text-start">
-						<label for="inp_nama" class="form-label">Nama Anda</label>
-						<input type="text" class="form-control" id="inp_nama" placeholder="nama ta">
+					<div id="gesture-area" style="position: absolute;left: 0;top: 0;">
+						<div id="fake_canvas" class="draggable"></div>
 					</div>
-					<div class="text-end">
-						<button type="submit" class="btn btn-success m-auto w-25" id="unduh">
-							<svg xmlns="http://www.w3.org/2000/svg" style="width:auto;height:20px" width="16"
-								height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
-								<path
-									d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
-								<path
-									d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
-							</svg>
+					<div id="nama" style="position: absolute;left: 5vw;top: 40vw;max-width: 30vw; color: rgb(16, 145, 34);font-weight: bold;">Nama Anda</div>
+				</div>
+				<div>
+					<div class="mb-3 text-center">
+						<button class="form-control w-50 my-3 m-auto btn btn-danger" id="btn_ambil_gambar">
+							Pilih Gambar
 						</button>
+						<input style="display: none;" type="file" class="form-control" id="inp_gambar" accept="image/*">
+						<div class="mb-3 text-start">
+							<label for="inp_nama" class="form-label">Nama Anda</label>
+							<input type="text" class="form-control" id="inp_nama" placeholder="nama ta">
+						</div>
+						<div class="text-end">
+							<button type="submit" class="btn btn-success m-auto w-25" id="unduh">
+								<svg xmlns="http://www.w3.org/2000/svg" style="width:auto;height:20px" width="16"
+									height="16" fill="currentColor" class="bi bi-camera" viewBox="0 0 16 16">
+									<path
+										d="M15 12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.172a3 3 0 0 0 2.12-.879l.83-.828A1 1 0 0 1 6.827 3h2.344a1 1 0 0 1 .707.293l.828.828A3 3 0 0 0 12.828 5H14a1 1 0 0 1 1 1v6zM2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2z" />
+									<path
+										d="M8 11a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5zm0 1a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM3 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
+								</svg>
+							</button>
+						</div>
+					</div>
+					<div class="text-center">
+						<a href="#">
+							<img src="images/template1.png" class="img-thumbnail" alt="">
+						</a>
 					</div>
 				</div>
-				<div class="text-center">
-					<a href="#">
-						<img src="images/template1.png" class="img-thumbnail" alt="">
-					</a>
-				</div>
-			</div>
 		</form>
 	</div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
@@ -100,27 +107,12 @@
 
 		// ctx.imageSmoothingEnabled = false;
 
+		$('#inp_nama').keyup(e=>{
+			$('#nama').text($(e.target).val())
+		})
+
 		$('form').submit(e => {
 			e.preventDefault()
-
-			// let constraints = { video: { width: wd, height: hg } };
-			// getMedia(constraints)
-			// async function getMedia(constraints) {
-			// 	let stream = null;
-
-			// 	try {
-			// 		stream = await navigator.mediaDevices.getUserMedia(constraints);
-			// 		var video = document.querySelector('video');
-			// 		video.srcObject = stream;
-			// 		video.onloadedmetadata = function (e) {
-			// 			video.play();
-			// 			$('#unduh').prop('disabled', false)
-			// 			console.log('metadata berjalan')
-			// 		};
-			// 	} catch (err) {
-			// 		console.log(err.name + ": " + err.message);
-			// 	}
-			// }
 		})
 
 		$('#btn_ambil_gambar').click(e => {
@@ -134,13 +126,10 @@
 			let gambar = document.createElement('img')
 			let file = $(e.target)[0].files[0]
 			let reader = new FileReader()
-			reader.readAsDataURL(file)
 			reader.onload = (e) => {
 				gambar.src = e.target.result
-				// gambar.id = "tesgambar"
-				// $('body').append(gambar)
-
 			}
+			reader.readAsDataURL(file)
 			reader.onloadend = (e) => {
 				let ctx = $('#cvs')[0].getContext("2d")
 				ctx.clearRect(0, 0, $('#cvs')[0].width, $('#cvs')[0].height);
@@ -149,45 +138,9 @@
 				$('#cvs')[0].width = wd
 				$('#cvs')[0].height = tinggiGambar
 				ctx.drawImage(gambar, 0, 0, $('#cvs')[0].width, $('#cvs')[0].height)
-				$('#fake_canvas').width($('#cvs')[0].width)
-				$('#fake_canvas').height($('#cvs')[0].height)
 
-				const position = { x: 0, y: 0 }
-
-				// interact('.draggable').draggable({
-				// 	listeners: {
-				// 		start(event) {
-				// 			console.log(event.type, event.target)
-				// 		},
-				// 		move(event) {
-				// 			position.x += event.dx
-				// 			position.y += event.dy
-
-				// 			event.target.style.transform =
-				// 				`translate(${position.x}px, ${position.y}px)`
-				// 			$('#cvs')[0].style.transform =
-				// 				`translate(${position.x}px, ${position.y}px)`
-				// 		},
-				// 	}
-				// })
-
-				function dragMoveListener(event) {
-					var target = event.target
-					// keep the dragged position in the data-x/data-y attributes
-					var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-					var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
-
-					// translate the element
-					target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
-					$('#cvs')[0].style.transform = 'translate(' + x + 'px, ' + y + 'px)'
-
-					// update the posiion attributes
-					target.setAttribute('data-x', x)
-					target.setAttribute('data-y', y)
-				}
-
-				// this function is used later in the resizing and gesture demos
-				window.dragMoveListener = dragMoveListener
+				$('#gesture-area').width($('#cvs')[0].width)
+				$('#gesture-area').height($('#cvs')[0].height)
 
 				var angleScale = {
 					angle: 0,
@@ -197,27 +150,20 @@
 				var scaleElement = $('#fake_canvas')[0]
 				var resetTimeout
 
+				reset()
+
 				interact(gestureArea)
 					.gesturable({
 						listeners: {
 							start(event) {
 								angleScale.angle -= event.angle
-
-								clearTimeout(resetTimeout)
-								scaleElement.classList.remove('reset')
-								// $('cvs')[0].classList.remove('reset')
 							},
 							move(event) {
-								// document.body.appendChild(new Text(event.scale))
 								var currentAngle = event.angle + angleScale.angle
 								var currentScale = event.scale * angleScale.scale
 
-								scaleElement.style.transform =
-									'rotate(' + currentAngle + 'deg)' + 'scale(' + currentScale + ')'
-
-								$('cvs')[0].style.transform =
-									'rotate(' + currentAngle + 'deg)' + 'scale(' + currentScale + ')'
-
+								scaleElement.style.transform = 'rotate(' + currentAngle + 'deg)' + 'scale(' + currentScale + ')'
+								$('#cvs')[0].style.transform = scaleElement.style.transform
 
 								// uses the dragMoveListener from the draggable demo above
 								dragMoveListener(event)
@@ -225,10 +171,6 @@
 							end(event) {
 								angleScale.angle = angleScale.angle + event.angle
 								angleScale.scale = angleScale.scale * event.scale
-
-								resetTimeout = setTimeout(reset, 1000)
-								scaleElement.classList.add('reset')
-								// $('cvs')[0].classList.add('reset')
 							}
 						}
 					})
@@ -238,80 +180,42 @@
 
 				function reset() {
 					scaleElement.style.transform = 'scale(1)'
-					$('cvs')[0].style.transform = 'scale(1)'
+					gestureArea.style.left = 0
+					gestureArea.style.top = 0
+
+					$('#cvs')[0].style.transform = scaleElement.style.transform
 
 					angleScale.angle = 0
 					angleScale.scale = 1
 				}
+
+				function dragMoveListener(event) {
+					var target = event.target
+					// keep the dragged position in the data-x/data-y attributes
+					var x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
+					var y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+					// translate the element
+					target.style.transform = 'translate(' + x + 'px, ' + y + 'px)'
+					$('#gesture-cvs')[0].style.transform = target.style.transform
+
+					// update the posiion attributes
+					target.setAttribute('data-x', x)
+					target.setAttribute('data-y', y)
+				}
+
+				// this function is used later in the resizing and gesture demos
+				window.dragMoveListener = dragMoveListener
 			}
 		})
 
 		// FRAME
 		$('a').click(e => {
 			e.preventDefault()
-
-			// 	// $('#cvs').height(hg)
-			// 	let faktor = $(e.target)[0].naturalWidth / $(e.target)[0].naturalHeight
-
-			// 	$('#cvs')[0].width = wd
-			// 	$('#cvs')[0].height = hg
-			// 	// alert(faktor)
-			// 	// ctx.clearRect(0, 0, wd, hg);
-
-			// ctx.drawImage($(e.target)[0], 0, 0, $('#cvs').width(), $('#cvs').height()) //destination
 			$('#template')[0].src = $(e.target)[0].src
-			// 	$('#inp_nama').prop('disabled', false)
-
-			// 	$('#inp_nama').keyup(e => {
-			// 		let lebar = 0
-
-			// 		$('#cvsNama')[0].width = wd
-			// 		$('#cvsNama')[0].height = hg
-
-			// 		let ratio = $('#cvs').width() - 360
-			// 		if (ratio < 0) {
-			// 			ratio = ratio * -1
-			// 		}
-			// 		console.log(ratio)
-			// 		console.log($('#cvs').width())
-			// 		const maxWidth = (150 / 322) * $('#cvs').width()
-			// 		const lineHeight = (20 / 322) * $('#cvs').width();
-			// 		const x = (13 / 322) * $('#cvs').width();
-			// 		const y = ($('#cvsNama')[0].height / 2.2);
-			// 		const text = $('#inp_nama').val();
-
-			// 		ctxNama.font = `${(12 / 322) * $('#cvs').width()}px Verdana`;
-			// 		// Create gradient
-			// 		let gradient = ctxNama.createLinearGradient(0, 0, $('#cvs')[0].width, 0);
-			// 		gradient.addColorStop("0", " magenta");
-			// 		gradient.addColorStop("0.5", "blue");
-			// 		gradient.addColorStop("1.0", "red");
-			// 		// Fill with gradient
-			// 		ctxNama.fillStyle = gradient;
-
-			// 		let wrapText = (ctx, text, x, y, maxWidth, lineHeight) => {
-			// 			const words = text.split(' ');
-			// 			let line = '';
-			// 			for (const [index, w] of words.entries()) {
-			// 				const testLine = line + w + ' ';
-			// 				const metrics = ctx.measureText(testLine);
-			// 				const testWidth = metrics.width;
-			// 				if (testWidth > maxWidth && index > 0) {
-			// 					ctx.fillText(line, x, y);
-			// 					line = w + ' ';
-			// 					y += lineHeight;
-			// 				} else {
-			// 					line = testLine;
-			// 				}
-			// 			}
-			// 			ctx.fillText(line, x, y);
-			// 		}
-			// 		wrapText(ctxNama, text, x, y, maxWidth, lineHeight);
-
+			$('#inp_nama').keyup(e => {
+			})
 		})
-
-		// 	// alert($(e.target)[0].naturalWidth)
-		// })
 
 		$('#unduh').click(e => {
 			html2canvas(video_container).then(function (canvas) {
@@ -322,41 +226,7 @@
 
 				link.click();
 			});
-			// 	// nama
-			// 	let namaData = ctxNama.getImageData(0, 0, $('#cvsNama')[0].width, $('#cvsNama')[0].height)
-			// 	let imageData0 = namaData.data
-			// 	// gambar
-			// 	let imageData = ctx.getImageData(0, 0, wd, hg)
-			// 	let imageData1 = imageData.data
-			// 	// video
-			// 	ctx.drawImage($('#myVideo')[0], 0, 0, $('#cvs').width(), $('#cvs').height())
-			// 	let videoData = ctx.getImageData(0, 0, wd, hg)
-			// 	let imageData2 = videoData.data
-			// 	let arrData = [imageData0, imageData1, imageData2]
-			// 	for (let j = 1; j < 3; j++) {
-			// 		for (let i = 3; i < imageData0.length; i += 4) {
-			// 			if (imageData0[i] == 0 && imageData0[i - 1] == 0 && imageData0[i - 2] == 0 && imageData0[i - 3] == 0) {
-			// 				imageData0[i] = arrData[j][i];
-			// 				imageData0[i - 1] = arrData[j][i - 1];
-			// 				imageData0[i - 2] = arrData[j][i - 2];
-			// 				imageData0[i - 3] = arrData[j][i - 3];
-			// 			}
-			// 		}
-			// 	}
-
-			// 	namaData.data = imageData0;
-			// 	ctx.putImageData(namaData, 0, 0);
-
-			// 	let urlGambar = $('#cvs')[0].toDataURL("image/jpg")
-
-			// 	let link = document.createElement('a');
-			// 	link.download = 'disdikbud_template.jpg';
-			// 	link.href = urlGambar
-
-			// 	link.click();
-
 		})
-		// })
 
 	</script>
 </body>
