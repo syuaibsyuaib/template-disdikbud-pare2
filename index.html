@@ -154,22 +154,22 @@
 
 				const position = { x: 0, y: 0 }
 
-				interact('.draggable').draggable({
-					listeners: {
-						start(event) {
-							console.log(event.type, event.target)
-						},
-						move(event) {
-							position.x += event.dx
-							position.y += event.dy
+				// interact('.draggable').draggable({
+				// 	listeners: {
+				// 		start(event) {
+				// 			console.log(event.type, event.target)
+				// 		},
+				// 		move(event) {
+				// 			position.x += event.dx
+				// 			position.y += event.dy
 
-							event.target.style.transform =
-								`translate(${position.x}px, ${position.y}px)`
-							$('#cvs')[0].style.transform =
-								`translate(${position.x}px, ${position.y}px)`
-						},
-					}
-				})
+				// 			event.target.style.transform =
+				// 				`translate(${position.x}px, ${position.y}px)`
+				// 			$('#cvs')[0].style.transform =
+				// 				`translate(${position.x}px, ${position.y}px)`
+				// 		},
+				// 	}
+				// })
 
 				function dragMoveListener(event) {
 					var target = event.target
@@ -205,7 +205,7 @@
 
 								clearTimeout(resetTimeout)
 								scaleElement.classList.remove('reset')
-								$('cvs')[0].classList.remove('reset')
+								// $('cvs')[0].classList.remove('reset')
 							},
 							move(event) {
 								// document.body.appendChild(new Text(event.scale))
@@ -228,7 +228,7 @@
 
 								resetTimeout = setTimeout(reset, 1000)
 								scaleElement.classList.add('reset')
-								$('cvs')[0].classList.add('reset')
+								// $('cvs')[0].classList.add('reset')
 							}
 						}
 					})
