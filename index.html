@@ -35,7 +35,7 @@
 			user-select: none;
 		}
 
-		#cvs.reset {
+		#fake_canvas.reset {
 			transition: transform 0.3s ease-in-out;
 		}
 	</style>
@@ -152,75 +152,36 @@
 
 				const position = { x: 0, y: 0 }
 
-				interact('.draggable').draggable({
-					listeners: {
-						start(event) {
-							console.log(event.type, event.target)
-						},
-						move(event) {
-							position.x += event.dx
-							position.y += event.dy
+				interact('.draggable')
+					.draggable({
+						// enable inertial throwing
+						inertia: true,
+						// keep the element within the area of it's parent
+						modifiers: [
+							interact.modifiers.restrictRect({
+								restriction: 'parent',
+								endOnly: true
+							})
+						],
+						// enable autoScroll
+						// autoScroll: true,
 
-							event.target.style.transform = `translate(${position.x}px, ${position.y}px)`
-							$('#cvs')[0].style.transform = `translate(${position.x}px, ${position.y}px)`
-						},
-					}
-				})
-
-				var angleScale = {
-					angle: 0,
-					scale: 1
-				}
-				var gestureArea = $('#video_container')[0]
-				var scaleElement = $('#cvs')[0]
-				var resetTimeout
-
-				interact(gestureArea)
-					.gesturable({
 						listeners: {
-							start(event) {
-								angleScale.angle -= event.angle
+							// call this function on every dragmove event
+							move: dragMoveListener,
 
-								clearTimeout(resetTimeout)
-								scaleElement.classList.remove('reset')
-								// $('cvs')[0].classList.remove('reset')
-							},
-							move(event) {
-								// document.body.appendChild(new Text(event.scale))
-								var currentAngle = event.angle + angleScale.angle
-								var currentScale = event.scale * angleScale.scale
-
-								scaleElement.style.transform =
-									'rotate(' + currentAngle + 'deg)' + 'scale(' + currentScale + ')'
-
-								// $('cvs')[0].style.transform =
-								// 	'rotate(' + currentAngle + 'deg)' + 'scale(' + currentScale + ')'
-
-
-								// uses the dragMoveListener from the draggable demo above
-								dragMoveListener(event)
-							},
+							// call this function on every dragend event
 							end(event) {
-								angleScale.angle = angleScale.angle + event.angle
-								angleScale.scale = angleScale.scale * event.scale
+								// var textEl = event.target.querySelector('p')
 
-								resetTimeout = setTimeout(reset, 1000)
-								scaleElement.classList.add('reset')
-								// $('cvs')[0].classList.add('reset')
+								// textEl && (textEl.textContent =
+								// 	'moved a distance of ' +
+								// 	(Math.sqrt(Math.pow(event.pageX - event.x0, 2) +
+								// 		Math.pow(event.pageY - event.y0, 2) | 0))
+								// 		.toFixed(2) + 'px')
 							}
 						}
 					})
-					.draggable({
-						listeners: { move: dragMoveListener }
-					})
-
-				function reset() {
-					scaleElement.style.transform = 'scale(1)'
-					// $('cvs')[0].style.transform = 'scale(1)'
-
-					angleScale.angle = 0
-					angleScale.scale = 1
-				}
 
 				function dragMoveListener(event) {
 					var target = event.target
@@ -234,6 +195,64 @@
 					// update the posiion attributes
 					target.setAttribute('data-x', x)
 					target.setAttribute('data-y', y)
+				}
+
+				// this function is used later in the resizing and gesture demos
+				window.dragMoveListener = dragMoveListener
+
+				var angleScale = {
+					angle: 0,
+					scale: 1
+				}
+				var gestureArea = $('#video_container')[0]
+				var scaleElement = $('#fake_canvas')[0]
+				var resetTimeout
+
+				interact(gestureArea)
+					.gesturable({
+						listeners: {
+							start(event) {
+								angleScale.angle -= event.angle
+
+								clearTimeout(resetTimeout)
+								scaleElement.classList.remove('reset')
+								$('cvs')[0].classList.remove('reset')
+							},
+							move(event) {
+								// document.body.appendChild(new Text(event.scale))
+								var currentAngle = event.angle + angleScale.angle
+								var currentScale = event.scale * angleScale.scale
+
+								scaleElement.style.transform =
+									'rotate(' + currentAngle + 'deg)' + 'scale(' + currentScale + ')'
+
+								$('cvs')[0].style.transform =
+									'rotate(' + currentAngle + 'deg)' + 'scale(' + currentScale + ')'
+
+
+								// uses the dragMoveListener from the draggable demo above
+								dragMoveListener(event)
+							},
+							end(event) {
+								angleScale.angle = angleScale.angle + event.angle
+								angleScale.scale = angleScale.scale * event.scale
+
+								resetTimeout = setTimeout(reset, 1000)
+								scaleElement.classList.add('reset')
+								$('cvs')[0].classList.add('reset')
+							}
+						}
+					})
+					.draggable({
+						listeners: { move: dragMoveListener }
+					})
+
+				function reset() {
+					scaleElement.style.transform = 'scale(1)'
+					$('cvs')[0].style.transform = 'scale(1)'
+
+					angleScale.angle = 0
+					angleScale.scale = 1
 				}
 			}
 		})
