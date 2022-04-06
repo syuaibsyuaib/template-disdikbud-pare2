@@ -35,7 +35,7 @@
 			user-select: none;
 		}
 
-		#fake_canvas.reset {
+		#cvs.reset {
 			transition: transform 0.3s ease-in-out;
 		}
 	</style>
@@ -172,7 +172,7 @@
 					scale: 1
 				}
 				var gestureArea = $('#video_container')[0]
-				var scaleElement = $('#fake_canvas')[0]
+				var scaleElement = $('#cvs')[0]
 				var resetTimeout
 
 				interact(gestureArea)
@@ -183,7 +183,7 @@
 
 								clearTimeout(resetTimeout)
 								scaleElement.classList.remove('reset')
-								$('cvs')[0].classList.remove('reset')
+								// $('cvs')[0].classList.remove('reset')
 							},
 							move(event) {
 								// document.body.appendChild(new Text(event.scale))
@@ -193,8 +193,8 @@
 								scaleElement.style.transform =
 									'rotate(' + currentAngle + 'deg)' + 'scale(' + currentScale + ')'
 
-								$('cvs')[0].style.transform =
-									'rotate(' + currentAngle + 'deg)' + 'scale(' + currentScale + ')'
+								// $('cvs')[0].style.transform =
+								// 	'rotate(' + currentAngle + 'deg)' + 'scale(' + currentScale + ')'
 
 
 								// uses the dragMoveListener from the draggable demo above
@@ -206,7 +206,7 @@
 
 								resetTimeout = setTimeout(reset, 1000)
 								scaleElement.classList.add('reset')
-								$('cvs')[0].classList.add('reset')
+								// $('cvs')[0].classList.add('reset')
 							}
 						}
 					})
@@ -216,7 +216,7 @@
 
 				function reset() {
 					scaleElement.style.transform = 'scale(1)'
-					$('cvs')[0].style.transform = 'scale(1)'
+					// $('cvs')[0].style.transform = 'scale(1)'
 
 					angleScale.angle = 0
 					angleScale.scale = 1
