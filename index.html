@@ -17,20 +17,7 @@
 			margin: 2px;
 		}
 
-
-		/* canvas {
-			width: 100%;
-			height: 100%;
-		} */
-
 		.draggable {
-			/* width: 25%;
-			min-height: 6.5em;
-			margin: 1rem 0 0 1rem;
-			background-color: #29e;
-			color: white;
-			border-radius: 0.75em;
-			padding: 4%; */
 			touch-action: none;
 			user-select: none;
 			width: 100%;
@@ -80,7 +67,7 @@
 					</div>
 					<div id="nama" class="resize-drag"
 						style="position: absolute;left: 3vw;top: 40vw;font-weight: bold;font-size: small;text-align: center;">
-						<span style="position: relative;top:50%">Nama Anda</span>
+						<span style="position: relative;top:50%">nama ta</span>
 					</div>
 				</div>
 				<div>
@@ -96,7 +83,8 @@
 						<input style="display: none;" type="file" class="form-control" id="inp_gambar" accept="image/*">
 						<div class="mb-3 input-group">
 							<input type="text" class="form-control w-75" id="inp_nama" placeholder="nama ta">
-							<input type="number" id="ukuran_font" class="form-control w-25" placeholder="besar font" min="1" value="13">
+							<input type="number" id="ukuran_font" class="form-control w-25" placeholder="besar font"
+								min="1" value="13">
 						</div>
 						<div class="text-end">
 							<button type="submit" class="btn btn-success m-auto" id="unduh">
@@ -108,10 +96,8 @@
 							</button>
 						</div>
 					</div>
-					<div class="text-center">
-						<a href="#">
-							<img src="images/template1.png" class="img-thumbnail" alt="">
-						</a>
+					<div class="text-center" id="template_dasar">
+
 					</div>
 				</div>
 		</form>
@@ -190,9 +176,7 @@
 					angle: 0,
 					scale: 1
 				}
-				// var gestureArea = $('#gesture-area')[0]
-				// var  $('#fake_canvas')[0] = $('#fake_canvas')[0]
-				// var resetTimeout
+
 				let ctx = $('#cvs')[0].getContext("2d")
 				ctx.clearRect(0, 0, $('#cvs')[0].width, $('#cvs')[0].height);
 				let ratio = gambar.naturalHeight / gambar.naturalWidth
@@ -274,7 +258,7 @@
 						target.setAttribute('data-x', x)
 						target.setAttribute('data-y', y)
 
-						$(target).children('span')[0].style.top = ($(target).innerHeight()/2) - ($(target).children('span').eq(0).height()/1.5) + 'px'
+						$(target).children('span')[0].style.top = ($(target).innerHeight() / 2) - ($(target).children('span').eq(0).height() / 1.5) + 'px'
 						// target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height)
 					}
 				},
@@ -303,16 +287,11 @@
 				]
 			})
 
-			$('#ukuran_font').change(e => {
-				console.log(e.target.value)
-				$('#nama span')[0].style.fontSize = e.target.value + 'px'
-			})
-
-		// FRAME
-		$('a').click(e => {
-			e.preventDefault()
-			$('#template')[0].src = $(e.target)[0].src
+		$('#ukuran_font').change(e => {
+			console.log(e.target.value)
+			$('#nama span')[0].style.fontSize = e.target.value + 'px'
 		})
+
 
 		$('#unduh').click(e => {
 			html2canvas(video_container).then(function (canvas) {
@@ -325,7 +304,19 @@
 			});
 		})
 
+		let htmlLink = (alamat) => {
+			return `<a href="#">
+							<img src="images/${alamat}.png" class="img-thumbnail template-dasar" alt="">
+						</a>`}
+		for (let i = 1; i <= 21; i++) {
+			$('#template_dasar').append(htmlLink(i))
+		}
 
+		$('.template-dasar').click(e => {
+			e.preventDefault()
+			// console.log(e.target)
+			$('#template')[0].src = $(e.target)[0].src
+		})
 
 	</script>
 </body>
