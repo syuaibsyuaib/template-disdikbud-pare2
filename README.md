@@ -1,4 +1,4 @@
-<b>MOHON DONASINYA buat beli KOPI biar makin semangat bikin ngodingnya,<br> 
+<b>MOHON DONASINYA buat beli KOPI biar makin semangat ngodingnya,<br> 
 silahkan pilih salahsatu metode transfer berikut:</b>
 
 1. DANA:<br>
